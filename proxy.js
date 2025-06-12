@@ -17,7 +17,7 @@ app.use(express.json());
 // Proxy endpoint
 app.all('/proxy', async (req, res) => {
   try {
-    const GAS_URL = 'https://script.google.com/macros/s/AKfycbzuFsfg8ICC4yJQmXJTSp2BuYrHXmmxzoV6M8-SypH1kWnW6lQTRZkj16aefgVLrJTV/exec';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbx7uQBMHSKDZCNFBEQUuHPpbJlGx7pzDDsOO_uybh8YODiLmFiho02G8KeaHXL5SO3xwA/exec';
 
     // Debug logs (optional)
     console.log('Incoming Request:', req.method, req.url);
