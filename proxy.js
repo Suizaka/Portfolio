@@ -7,8 +7,9 @@ const PORT = 5000;
 
 // Enable CORS for your frontend origin
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000']
+  origin: ['https://suizaka.github.io', 'http://localhost:3000', 'http://127.0.0.1:3000']
 }));
+
 
 
 // To parse JSON body if needed
