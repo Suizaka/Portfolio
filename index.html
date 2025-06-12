@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <style>
+    :root {
+      --main-bg: #f7f7f7;
+      --text-color: #222;
+      --accent: #6336f5;
+      --card-bg: #ffffff;
+    }
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--main-bg);
+      color: var(--text-color);
+    }
+    header {
+      padding: 1.5rem 2rem;
+      background: transparent;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.75rem;
+    }
+   .circle-image.logo {
+     width: 60px;
+     height: 60px;
+     border-radius: 50%;
+     overflow: hidden;
+     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    }
+   .circle-image.logo img {
+     width: 100%;
+     height: 100%;
+     object-fit: contain;
+    }
+    #mainHeader {
+     position: fixed;
+     top: 0;
+     width: 100%;
+     background-color: #fff /* original semi-transparent background */
+     color white;
+     z-index: 1000;
+     transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    #mainHeader.scrolled {
+     background-color: transparent; /* fully transparent */
+     color: #f0f0f0; /* slightly lighter white for better contrast */
+     text-shadow: 0 0 5px rgba(0,0,0,0.7); /* subtle shadow for readability */
+     box-shadow: none; /* remove any shadows if present */
+    }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    .hero {
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom, #ede9fe, #ffffff);
+}
+    .hero-content {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 3rem; /* space between image and text */
+     max-width: 1200px;
+     margin: 0 auto;
+     flex-wrap: wrap; /* for responsiveness */
+    }
+    .hero-image {
+  flex: 1 1 40%; /* grow/shrink, base 40% width */
+  max-width: 400px; /* max size */
+  width: 100%;
+}
+
+.hero-text {
+  flex: 1 1 50%; /* base 50% width */
+  text-align: left;
+}
+
+.hero h2 {
+  font-size: 2.75rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.125rem;
+  color: #555;
+  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+/* Responsive: stack on smaller screens */
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+  }
+
+  .hero-image, .hero-text {
+    flex: 1 1 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .hero-text {
+    margin-top: 2rem;
+  }
+}
+
+.about-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  background: linear-gradient(to bottom, #ede9fe, #ffffff); /* soft purple to white */
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #6b21a8; /* deep purple */
+}
+
+.about-section p {
+  font-size: 1.125rem;
+  max-width: 640px;
+  margin: 0 auto 1.5rem;
+  color: #444;
+}
+
+.about-section .btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #6a11cb;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.about-section .btn:hover {
+  background-color: #4c0ea3;
+}
+
+
+    .cards {
+      padding: 4rem 2rem;
+      display: grid;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .cards {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 2rem 1.5rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(99, 54, 245, 0.2);
+    }
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+    .card p {
+      font-size: 1rem;
+      color: #444;
+    }
+    .card-img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+/*.card-img {
+  height: 180px;
+  object-fit: cover;
+}     This is used when images of different lengths*/ 
+.card-button-container {
+  grid-column: 1 / -1; /* Makes the button span all columns */
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.card-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #6a11cb;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.card-btn:hover {
+  background-color: #4c0ea3;
+}
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.contact-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom, #ffffff, #ede9fe);
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  color: #6b21a8;
+  margin-bottom: 0.5rem;
+}
+
+.contact-intro {
+  font-size: 1.125rem;
+  color: #5a5a5a;
+  margin-bottom: 2rem;
+}
+
+#contact-form {
+  max-width: 550px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1.5px solid #d1c4e9;
+  background: #f8f6ff;
+  transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #6a11cb;
+  outline: none;
+}
+
+.submit-btn {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: white;
+  font-weight: bold;
+  padding: 0.9rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(90deg, #5e0fbc, #1e60e2);
+  transform: scale(1.03);
+}
+
+.form-message {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: 1000;
+  color: #4a148c;
+  background: #f3e8ff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+    footer {
+  background-color: #fafafa;
+  color: #444444;
+  border-top: 2px solid #b8a8f9;
+  padding: 2rem;
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+    .footer-logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .footer-socials a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #555;
+      font-size: 1.25rem;
+    }
+    .footer-socials a:hover {
+      color: var(--accent);
+    }
+    .footer-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+  
+
+
+
+  </style>
+</head>
+<body>
+  <header id="mainHeader">
+    <div class="circle-image logo">
+  <img src="Logo.jpg" alt="Suizaka Hitarth Logo">
+</div>
+
+    <nav>
+      <a href="#home"><b>Home</b></a>
+      <a href="#about"><b>About Me</b></a>
+      <a href="#projects"><b>Projects</b></a>
+      <a href="#contact"><b>Contact</b></a>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+  <div class="hero-content">
+    <img src="Intro.jpg" alt="wave" class="hero-image" />
+    <div class="hero-text">
+      <h2>Engineer in the Making | Tech Explorer</h2>
+      <p>Bringing tech ideas to life! ⚡️🔧 I love working with hardware like sensors and microcontrollers 🛠️📡 and teaming up with software tools to build real-world automation that actually works. 🤖✨ </p>
+      <p>No fluff, just practical projects that make a difference. 🚀💜</p>
+      <p>Join me on this journey to shape the future of connected tech! 🌐🔮</p>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about-section">
+<h2>About Me</h2>
+<p>I’m an engineering student passionate about bringing real-world tech ideas to life💡</p><p> Whether it’s tinkering with electronics ⚙️ or building functional systems 🤖, <br>I love bridging the gap between imagination and execution.</p>
+<a href="about.html" class="btn">Read More</a>
+</section>
+
+  <section id="projects" class="cards">
+    <a href="radar.html" class="card-link">
+    <div class="card" data-aos="zoom-in" data-aos-delay="0">
+      <h3>UltraSonic Detector</h3>
+      <img src="Intro.jpg" alt="UltraSonic Project" class="card-img">
+      <p>I am a passionate individual dedicated to building intuitive digital experiences.</p>
+    </div></a>
+      <a href="ultrasonic.html" class="card-link">
+    <div class="card" data-aos="zoom-in" data-aos-delay="0">
+      <h3>UltraSonic Detector</h3>
+      <img src="Intro.jpg" alt="UltraSonic Project" class="card-img">
+      <p>I am a passionate individual dedicated to building intuitive digital experiences.</p>
+    </div></a>
+      <a href="ultrasonic.html" class="card-link">
+    <div class="card" data-aos="zoom-in" data-aos-delay="0">
+      <h3>UltraSonic Detector</h3>
+      <img src="Intro.jpg" alt="UltraSonic Project" class="card-img">
+      <p>I am a passionate individual dedicated to building intuitive digital experiences.</p>
+    </div></a>
+      <a href="ultrasonic.html" class="card-link">
+    <div class="card" data-aos="zoom-in" data-aos-delay="0">
+      <h3>UltraSonic Detector</h3>
+      <img src="Intro.jpg" alt="UltraSonic Project" class="card-img">
+      <p>I am a passionate individual dedicated to building intuitive digital experiences.</p>
+    </div></a>
+    <div class="card-button-container">
+  <a href="project.html" class="card-btn">View More Projects</a>
+</div>
+  </section>
+
+  <section id="contact" class="contact-section">
+  <h2>Get in Touch 💬</h2>
+  <p class="contact-intro">Have a question, idea, or just want to say hi? Drop a message below — I’d love to hear from you!</p>
+
+  <form id="contact-form">
+    <div class="form-group">
+      <input type="text" name="name" placeholder="Your Name" required />
+    </div>
+    <div class="form-group">
+      <input type="email" name="email" placeholder="Your Email" required />
+    </div>
+    <div class="form-group">
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Send Message 🚀</button>
+  </form>
+
+  <p id="form-message" class="form-message"></p>
+</section>
+
+
+  <footer>
+    <div class="footer-section footer-logo"><p>Hitarth</p><p>Shah</p></div>
+    <div class="footer-section footer-socials">
+  <a href="https://instagram.com/yourprofile" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a href="https://linkedin.com/in/yourprofile" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+  <a href="https://github.com/yourprofile" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+</div>
+
+    <div class="footer-section">
+      <h4>Contact Us</h4>
+      <p>Email: <a href="mailto:hitarthhitu27@gmail.com">hitarthhitu27@gmail.com</a></p>
+      <p>Phone: +91 6354142687</p>
+    </div>
+    
+    <div class="footer-section" style="flex-basis: 100%; text-align:center; margin-top:1rem; font-size:0.8rem; color:#999;">
+  &copy; 2025 Hitarth. All rights reserved.
+</div>
+
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    window.addEventListener('scroll', function () {
+  const header = document.getElementById('mainHeader');
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+
+  document.getElementById("contact-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value
+    };
+
+   fetch('https://script.google.com/macros/s/AKfycbzneBsEehINooAhk-ErH9Kc8bFdm0BMrNsmKWM2oiUSSf15bIM3TdGqhNHvdqEjwe-r/exec', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(formData)
+})
+
+    .then(response => {
+      if (response.ok) {
+        document.getElementById("form-message").innerText = "✨ Thanks for reaching out! I’ll get back to you as soon as possible.";
+        form.reset();
+      } else {
+        document.getElementById("form-message").innerText = "⚠️ Something went wrong. Please try again later.";
+      }
+    })
+    .catch(() => {
+      document.getElementById("form-message").innerText = "⚠️ Error sending message.";
+    });
+  });
+
+  AOS.init({
+    duration: 1000,
+    once: true,
+    easing : 'ease-out-cubic'
+  });
+</script>
+
+  </script>
+</body>
+</html>
+
