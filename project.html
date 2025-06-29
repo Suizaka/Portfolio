@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects | Hitarth Shah</title>
+  <style>
+    :root {
+      --main-bg: #f7f7f7;
+      --text-color: #222;
+      --accent: #6336f5;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html{
+        scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--main-bg);
+      color: var(--text-color);
+    }
+
+    header {
+       padding: 1.5rem 2rem;
+      
+      box-shadow: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.75rem;
+    }
+
+    .circle-image.logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .circle-image.logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+    #mainHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff /* original semi-transparent background */
+  color white;
+  z-index: 1000;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  /* add padding, height, or box-shadow if you already have */
+}
+
+
+    .projects-section {
+      padding: 100px 5% 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .projects-section h1 {
+      font-size: 2.75rem;
+      color: #0d3b66;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .projects-section p {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 50px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      padding: 2rem 1.5rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+     transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(99, 54, 245, 0.2);
+    }   
+
+    .project-card img {
+   width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+  .project-card
+{
+    text-decoration: none;
+    color: inherit;
+  }
+
+    .project-card h3 {
+    font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .project-card p {
+     font-size: 1rem;
+      color: #444;
+    }
+
+    footer {
+      background-color: #fafafa;
+      color: #444444;
+      border-top: 2px solid #b8a8f9;
+      padding: 2rem;
+      font-size: 0.875rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .footer-socials a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #555;
+      font-size: 1.25rem;
+    }
+
+    .footer-socials a:hover {
+      color: var(--accent);
+    }
+
+    .footer-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+
+     @media (min-width: 768px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .cards {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<header id="mainHeader">
+  <div class="circle-image logo">
+    <img src="logo.jpg" alt="Portfolio Logo">
+  </div>
+  <nav>
+    <a href="index.html"><b>Home</b></a>
+    <a href="about.html"><b>About Me</b></a>
+    <a href="project.html"><b>Projects</b></a>
+    <a href="index.html#contact"><b>Contact</b></a>
+  </nav>
+</header>
+
+<main>
+  <section class="projects-section">
+    <h1>🚀 Projects</h1>
+    <p>A showcase of my creations, explorations, and innovations.</p>
+
+    <div class="project-grid">
+      <!-- Project Card 1 -->
+      <a href="project_1.html" class="project-card">
+         <h3>UltraSonic Detector</h3>
+        <img src="Intro.jpg" alt="Smart Home">
+        <div class="card-content">
+          <p>🔍 Real-time Ultrasonic Radar System using Arduino and Processing for dynamic object detection and live visualization.</p>
+        </div>
+      </a>
+
+      <!-- Project Card 2 -->
+      <a href="project_2.html" class="project-card">
+        <h3>Fire Safe Now</h3>
+        <img src="Intro.jpg" alt="EV System">
+        <div class="card-content">
+          <p>A real-time fire threat detection and response website with live maps and interactive UI, built in 48 hours for NASA’s Space Apps Hackathon 🚀🌍</p>
+        </div>
+      </a>
+
+      <!-- Project Card 3 -->
+      <a href="project_3.html" class="project-card">
+           <h3>Obstacle Alert System</h3>
+        <img src="Intro.jpg" alt="Quiz App">
+        <div class="card-content">
+          <p>An Arduino-powered project that uses an ultrasonic sensor 🚨 to detect nearby objects 🧱 and triggers a buzzer 🔔 and LED 💡 when the object comes too close, ensuring quick alerts for safety.</p>
+        </div>
+      </a>
+
+      <!-- Project Card 4 -->
+      <a href="project_4.html" class="project-card">
+          <h3>🔧📉 OPAMP 741 Analog Kit</h3>
+        <img src="Intro.jpg" alt="Portfolio Website">
+        <div class="card-content">
+          <p>A dual-function hardware project showcasing integrator & differentiator circuits, fully hand-soldered on zero PCB 🛠️, enclosed in a wooden box 🪵, and equipped with custom-made BNC 🔗 and banana 🔌 connectors for lab testing.</p>
+        </div>
+      </a>
+
+      <a href="project_5.html" class="project-card">
+          <h3>🔒 ATmega32 Passcode System</h3>
+        <img src="Intro.jpg" alt="Portfolio Website">
+        <div class="card-content">
+          <p>A secure access system using a 4x4 keypad, LCD, buzzer, and LEDs 🔢💡. Built in C, it validates password entries and gives real-time feedback with alerts and display messages.</p>
+        </div>
+      </a>
+
+      <a href="project_6.html" class="project-card">
+          <h3>🏡🔋 Smart Home Automation (ESP32)</h3>
+        <img src="Intro.jpg" alt="Portfolio Website">
+        <div class="card-content">
+          <p>A solar-powered smart system with Bluetooth app control 📱, Google Home voice integration 🎙️, manual buttons, motion & sound sensors 🕵️‍♂️👏, and flame alert safety 🔥 — all simulated on a cardboard home model for real-world prototyping.</p>
+        </div>
+      </a>
+
+      <!-- More rows auto-add as needed -->
+    </div>
+
+  </section>
+</main>
+
+<footer>
+  <div class="footer-section footer-logo"><p>Hitarth</p><p>Shah</p></div>
+
+  <div class="footer-section footer-socials">
+    <a href="https://www.instagram.com/hitarth_279" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://linkedin.com/in/shah-hitarth" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/Suizaka" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+  </div>
+
+  <div class="footer-section">
+    <h4>Contact Us</h4>
+    <p>Email: <a href="mailto:hitarthhitu27@gmail.com">hitarthhitu27@gmail.com</a></p>
+    <p>Phone: +91-6354142687</p>
+  </div>
+
+  <div class="footer-section" style="flex-basis: 100%; text-align:center; margin-top:1rem; font-size:0.8rem; color:#999;">
+    &copy; 2025 Hitarth. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>
