@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+                                                                                             
+  <style>
+    :root {
+      --main-bg: #f7f7f7;
+      --text-color: #222;
+      --accent: #6336f5;
+      --card-bg: #ffffff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--main-bg);
+      color: var(--text-color);
+    }
+    header {
+      padding: 1.5rem 2rem;
+      
+      box-shadow: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.75rem;
+    }
+
+.circle-image.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.circle-image.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+  #mainHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff /* original semi-transparent background */
+  color white;
+  z-index: 1000;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  /* add padding, height, or box-shadow if you already have */
+}
+
+
+
+   nav a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    footer {
+  background-color: #fafafa;
+  color: #444444;
+  border-top: 2px solid #b8a8f9;
+  padding: 2rem;
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+    .footer-logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .footer-socials a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #555;
+      font-size: 1.25rem;
+    }
+    .footer-socials a:hover {
+      color: var(--accent);
+    }
+    .footer-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+  
+    .about-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 140px;
+      padding-bottom: 80px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      color: #0d3b66;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .about-flex {
+      display: flex;
+      gap: 40px;
+      align-items: stretch;
+      flex-wrap: wrap;
+      min-height: 450px;
+    }
+
+   .about-image{
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.about-image img {
+  width:fit-content;
+  max-width:100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+    .about-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .about-text h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #0d3b66;
+    }
+
+    .about-text p {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .about-section{
+        padding-bottom: 100px;
+      }
+      .about-flex {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-text {
+        margin-top: 1rem;
+      }
+
+      .about-image,.about-text{
+        align-items: center;
+      }
+
+      .about-text{
+        padding: 0;
+
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header id="mainHeader">
+  <div class="circle-image logo">
+    <img src="logo.jpg" alt="Portfolio Logo">
+  </div>
+  
+    <nav>
+      <a href="index.html"><b>Home</b></a>
+      <a href="about.html"><b>About Me</b></a>
+      <a href="project.html"><b>Projects</b></a>
+      <a href="index.html#contact"><b>Contact</b></a>
+    </nav>
+
+</header>
+
+<main>
+  <section class="about-section">
+  <h1 class="section-title">✨ About Me</h1>
+  <div class="about-flex">
+    <div class="about-image">
+      <img src="profile.JPG" alt="Hitarth Shah" />
+    </div>
+    <div class="about-text">
+      <h2>Hello, I'm Hitarth Shah 👋</h2>
+      <p>
+        An engineering student who loves blending tech with creativity ⚡. From building <strong>Smart Home Automation Systems</strong>, crafting <strong>Analog Circuits</strong>, and creating <strong>Microprocessor-based projects</strong>, to developing a website for a national <strong>hackathon</strong>, I enjoy bringing ideas to life through hands-on innovation 🛠️💡.
+      </p>
+      <p>
+        I’ve had the opportunity to collaborate with seniors and peers on several departmental projects, constantly learning and growing along the way. I’m also the <strong>founder of Ameliorate Yourself</strong> — a platform filled with fun quizzes and brain games that make learning engaging and enjoyable 🧠🎯.
+      </p>
+      <p>
+        Beyond academics, I proudly wear many hats:
+        <br><br>
+        🎭 <strong>Founder and core team member of Kalakruti</strong>, our college’s cultural club<br>
+        📸 Member of the <strong>photography</strong> and <strong>drama</strong> clubs<br>
+        📚 Contributor to <strong>Mission English</strong> — a student-driven initiative to enhance English fluency<br>
+        🎬 Part of <strong>Campus Connect</strong> — producing news reels and creative reels as part of the media team<br>
+        📰 <strong>Lead editor</strong> of our department’s official newsletter<br>
+        🎸 Currently learning to play the <strong>melodious strings</strong><br>
+        🎞️ Exploring the world of <strong>videography and video editing</strong>
+      </p>
+      <p>
+        Curious, driven, and always ready to create — welcome to my corner of the internet! 🚀💫
+      </p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="footer-section footer-logo"><p>Hitarth</p><p>Shah</p></div>
+    <div class="footer-section footer-socials">
+  <a href="https://www.instagram.com/hitarth_279" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a href="https://www.linkedin.com/in/shah-hitarth" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+  <a href="https://github.com/Suizaka" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+</div>
+
+    <div class="footer-section">
+      <h4>Contact Us</h4>
+      <p>Email: <a href="mailto:hitarthhitu27@gmail.coms">hitarthhitu27@gmail.com</a></p>
+      <p>Phone: +91-6354142687</p>
+    </div>
+  
+    <div class="footer-section" style="flex-basis: 100%; text-align:center; margin-top:1rem; font-size:0.8rem; color:#999;">
+  &copy; 2025 Hitarth. All rights reserved.
+</div>
+
+  </footer>
+</body>
+</html>
