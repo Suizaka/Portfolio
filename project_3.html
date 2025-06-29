@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UltraSonic Sensor Project | Hitarth Shah</title>
+  <style>
+    :root {
+      --main-bg: #f7f7f7;
+      --text-color: #222;
+      --accent: #6336f5;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html{
+        scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--main-bg);
+      color: var(--text-color);
+    }
+
+    header {
+       padding: 1.5rem 2rem;
+      
+      box-shadow: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.75rem;
+    }
+
+    .circle-image.logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    .circle-image.logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+    #mainHeader {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff /* original semi-transparent background */
+  color white;
+  z-index: 1000;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  /* add padding, height, or box-shadow if you already have */
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem 1rem;
+  font-family: 'Outfit', sans-serif;
+  color: #222;
+}
+ul {
+  list-style-type: none;
+}
+.project-hero {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.project-hero h1 {
+  font-size: 2.5rem;
+  color: #6336f5;
+  margin-bottom: 0.5rem;
+}
+
+.project-hero p {
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+}
+
+.project-hero img {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-section {
+  margin-top: 2rem;
+}
+
+.project-section h2 {
+  font-size: 1.75rem;
+  color: #0d3b66;
+  margin-bottom: 1rem;
+}
+
+.project-section p,
+.project-section li {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.project-section ul {
+  padding-left: 1.5rem;
+}
+
+.project-section a {
+  color: #6336f5;
+  text-decoration: none;
+}
+
+.project-section a:hover {
+  text-decoration: underline;
+}
+
+.project-gallery {
+  margin-top: 3rem;
+}
+
+.project-gallery h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #0d3b66;
+  margin-bottom: 1.5rem;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.gallery-grid img {
+  width: 100%   ;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.gallery-item video,
+.gallery-item img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .project-hero h1 {
+    font-size: 2rem;
+  }
+
+  .gallery-grid img {
+    width: 100%;
+    max-width: 90vw;
+  }
+}
+
+
+    footer {
+      background-color: #fafafa;
+      color: #444444;
+      border-top: 2px solid #b8a8f9;
+      padding: 2rem;
+      font-size: 0.875rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .footer-socials a {
+      margin: 0 0.5rem;
+      text-decoration: none;
+      color: #555;
+      font-size: 1.25rem;
+    }
+
+    .footer-socials a:hover {
+      color: var(--accent);
+    }
+
+    .footer-section {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+  </style>
+</head>
+<body>
+<header id="mainHeader">
+  <div class="circle-image logo">
+    <img src="logo.jpg" alt="Portfolio Logo">
+  </div>    
+
+  <nav>
+    <a href="index.html"><b>Home</b></a>
+    <a href="about.html"><b>About Me</b></a>
+    <a href="project.html"><b>Projects</b></a>
+    <a href="index.html#contact"><b>Contact</b></a>
+  </nav>
+</header>
+
+
+  <main>
+  <section class="project-hero">
+    <h1>🟣 Ultrasonic Proximity Alert System 🔊🚨</h1>
+    <p>A simple safety mechanism that detects nearby obstacles and gives buzzer alerts with LED indication 🔔🟡, made for my College Project in 1st Sem.</p>
+    <img src="Intro.jpg" alt="Radar Project Banner" />
+  </section>
+
+  <section class="project-section">
+    <h2>📘 Project Overview</h2>
+    <p>This project was built as part of a college project. It uses an ultrasonic sensor connected to an Arduino Uno to continuously measure distance to nearby objects. If any object comes within a predefined unsafe range, the system triggers a buzzer and an LED as a warning.
+
+The main objective was to demonstrate basic proximity-based alert systems in embedded electronics.</p>
+  </section>
+
+  <section class="project-section">
+    <h2>🚀 Features & Highlights</h2>
+    <ul>
+      <li>🔧 Real-time distance measurement using ultrasonic sensor.</li>
+      <li>🚨 Buzzer alarm and LED indicator for immediate feedback.</li>
+      <li>🧠 Simple logic and hardware — great for beginners in Arduino and sensors.</li>
+      <li>🎯 Detects objects within ~5 cm range and triggers a warning.</li>
+      <li>🔌 Low power consumption and easy to assemble.</li>
+    </ul>
+  </section>
+
+  <section class="project-section">
+    <h2>🧠 Tech Stack Used</h2>
+    <ul>
+      <li>Arduino UNO, HC-SR04, 5V Buzzer, LED, Resistor, Jumper Wires and Breadboard.</li>
+      <li>Arduino IDE</li>
+    </ul>
+  </section>
+
+  <section class="project-section">
+    <h2>🗂️ Working / Architecture</h2>
+    <p>Ultrasonic Sensor (HC-SR04) emits sound pulses and measures the time for echo.</p>
+    <p>Arduino calculates the distance using pulse timing.</p>
+    <p>If distance is less than marked distance than: Buzzer is activated and LED lights up.</p>
+    <p>Else the output remains silent.</p>
+  </section>
+
+  <section class="project-section">
+    <h2>🔗 Links & Resources</h2>
+    <ul>
+      <li>🔗 <a href="https://youtu.be/pB49idXdPfY?si=8Hz8g7CaCqQXmPyA" target="_blank">YouTube Visualization Source</a></li>
+      <li>📥 <a href="#">Download Arduino Code</a></li>
+    </ul>
+  </section>
+
+  <section class="project-section">
+    <h2>🧠 What I Learned</h2>
+    <ul>
+      <li>✨ Hands-on experience with <strong>ultrasonic sensing</strong> and <strong>real-time distance measurement</strong></li>
+      <li>✨ Calibrating safe distance thresholds and understanding <strong>pulseIn()</strong> in Arduino</li>
+      <li>✨ How to handle real-world inputs and create outputs that matter (alerts!)</li>  </section>
+
+ <div class="gallery-grid">
+  <!-- Video -->
+  <div class="gallery-item">
+    <video controls>
+      <source src="tp.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Image 1 -->
+  <div class="gallery-item">
+    <img src="Intro.jpg" alt="Radar Hardware Setup">
+  </div>
+
+  <!-- Image 2 -->
+  <div class="gallery-item">
+    <img src="Intro.jpg" alt="Radar UI Screenshot">
+  </div>
+</div>
+
+</main>
+<footer>
+  <div class="footer-section footer-logo"><p>Hitarth</p><p>Shah</p></div>
+
+  <div class="footer-section footer-socials">
+    <a href="https://www.instagram.com/hitarth_279" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://linkedin.com/in/shah-hitarth" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/Suizaka" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+  </div>
+
+
+  <!--Change your code here-->
+
+  <div class="footer-section">
+    <h4>Contact Us</h4>
+    <p>Email: <a href="mailto:hitarthhitu27@gmail.com">hitarthhitu27@gmail.com</a></p>
+    <p>Phone: +91-6354142687</p>
+  </div>
+  <div class="footer-section" style="flex-basis: 100%; text-align:center; margin-top:1rem; font-size:0.8rem; color:#999;">
+    &copy; 2025 Hitarth. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>
