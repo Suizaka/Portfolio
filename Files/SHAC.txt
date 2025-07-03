@@ -1,0 +1,252 @@
+#include <WiFi.h>
+#include <SinricPro.h>
+#include <SinricProSwitch.h>
+#include <HardwareSerial.h>
+
+// WiFi Credentials
+#define WIFI_SSID "Username"
+#define WIFI_PASS "Password"
+
+// Sinric Pro Credentials
+#define APP_KEY     "4be72fa0-4356-4dff-af92-d74b1137e1a5"
+#define APP_SECRET  "788324ab-c5b4-4b93-8d11-b1e9a21a10e2-7c6ef173-e31c-4c04-964c-f874effebded"
+#define DEVICE_ID_1 "67f57067947cbabd20f3700b"
+#define DEVICE_ID_4 "67fa384adc4a25d5c3abba3e"
+
+// Relay Pins (Active LOW)
+#define RELAY1_PIN 27
+#define RELAY2_PIN 26
+#define RELAY3_PIN 23
+#define RELAY4_PIN 25
+
+// Button Pins
+#define BUTTON1_PIN 4
+#define BUTTON2_PIN 5
+#define BUTTON3_PIN 18
+#define BUTTON4_PIN 19
+
+// Sensors
+#define PIR_SENSOR_PIN 32
+#define FLAME_SENSOR_PIN 33
+#define SOUND_SENSOR_PIN 21
+#define BUZZER_PIN 22
+
+HardwareSerial BTSerial(1);
+#define BT_RX 3
+#define BT_TX 1
+
+
+
+bool relayStates[4] = {false, false, false, false};
+unsigned long lastOverrideTime = 0;
+bool overrideRelay2 = false;
+
+// PIR timing
+unsigned long lastMotionTime = 0;
+const unsigned long noMotionDelay = 10000;       // 10 sec
+const unsigned long overrideDuration = 30000;    // 30 sec override timeout
+
+// Clap Switch
+bool lastSoundState = HIGH;
+unsigned long lastSoundToggleTime = 0;
+
+void setRelay(uint8_t relayNum, bool state) {
+  uint8_t pin = (relayNum == 1) ? RELAY1_PIN :
+                (relayNum == 2) ? RELAY2_PIN :
+                (relayNum == 3) ? RELAY3_PIN : RELAY4_PIN;
+  relayStates[relayNum - 1] = state;
+  digitalWrite(pin, state ? LOW : HIGH); // Active LOW
+  Serial.printf("Relay %d turned %s\n", relayNum, state ? "ON" : "OFF");
+}
+
+void setupPins() {
+  pinMode(RELAY1_PIN, OUTPUT);
+  pinMode(RELAY2_PIN, OUTPUT);
+  pinMode(RELAY3_PIN, OUTPUT);
+  pinMode(RELAY4_PIN, OUTPUT);
+  digitalWrite(RELAY1_PIN, HIGH);
+  digitalWrite(RELAY2_PIN, HIGH);
+  digitalWrite(RELAY3_PIN, HIGH);
+  digitalWrite(RELAY4_PIN, HIGH);
+
+  pinMode(BUTTON1_PIN, INPUT_PULLUP);
+  pinMode(BUTTON2_PIN, INPUT_PULLUP);
+  pinMode(BUTTON3_PIN, INPUT_PULLUP);
+  pinMode(BUTTON4_PIN, INPUT_PULLUP);
+
+  pinMode(PIR_SENSOR_PIN, INPUT);
+  pinMode(FLAME_SENSOR_PIN, INPUT);
+  pinMode(SOUND_SENSOR_PIN, INPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(BUZZER_PIN, LOW);
+}
+
+void handleButtons() {
+  if (digitalRead(BUTTON1_PIN) == LOW) {
+    delay(50);
+    if (digitalRead(BUTTON1_PIN) == LOW) {
+      relayStates[0] = !relayStates[0];
+      digitalWrite(RELAY1_PIN, relayStates[0] ? LOW : HIGH);
+      Serial.printf("Button 1: Relay 1 %s\n", relayStates[0] ? "ON" : "OFF");
+      while (digitalRead(BUTTON1_PIN) == LOW);  // Wait for release
+    }
+  }
+
+  if (digitalRead(BUTTON2_PIN) == LOW) {
+    delay(50);
+    if (digitalRead(BUTTON2_PIN) == LOW) {
+      relayStates[1] = !relayStates[1];
+      digitalWrite(RELAY2_PIN, relayStates[1] ? LOW : HIGH);
+      Serial.printf("Button 2: Relay 2 %s (override ON)\n", relayStates[1] ? "ON" : "OFF");
+      overrideRelay2 = true;
+      lastOverrideTime = millis();
+      while (digitalRead(BUTTON2_PIN) == LOW);
+    }
+  }
+
+  if (digitalRead(BUTTON3_PIN) == LOW) {
+    delay(50);
+    if (digitalRead(BUTTON3_PIN) == LOW) {
+      relayStates[2] = !relayStates[2];
+      digitalWrite(RELAY3_PIN, relayStates[2] ? LOW : HIGH);
+      Serial.printf("Button 3: Relay 3 %s\n", relayStates[2] ? "ON" : "OFF");
+      while (digitalRead(BUTTON3_PIN) == LOW);
+    }
+  }
+
+  if (digitalRead(BUTTON4_PIN) == LOW) {
+    delay(50);
+    if (digitalRead(BUTTON4_PIN) == LOW) {
+      relayStates[3] = !relayStates[3];
+      digitalWrite(RELAY4_PIN, relayStates[3] ? LOW : HIGH);
+      Serial.printf("Button 4: Relay 4 %s\n", relayStates[3] ? "ON" : "OFF");
+      while (digitalRead(BUTTON4_PIN) == LOW);
+    }
+  }
+}
+
+void handlePIR() {
+  bool motion = digitalRead(PIR_SENSOR_PIN);
+  unsigned long now = millis();
+
+  if (overrideRelay2 && (now - lastOverrideTime > overrideDuration)) {
+    overrideRelay2 = false;
+    Serial.println("Override expired");
+  }
+
+  if (motion) {
+    lastMotionTime = now;
+    if (!relayStates[1] && !overrideRelay2) {
+      setRelay(2, true);
+      Serial.println("PIR detected - Relay 2 ON");
+    }
+  } else {
+    if ((now - lastMotionTime > noMotionDelay) && !overrideRelay2 && relayStates[1]) {
+      setRelay(2, false);
+      Serial.println("No motion - Relay 2 OFF");
+    }
+  }
+}
+
+void handleFlameSensor() {
+  bool flame = digitalRead(FLAME_SENSOR_PIN) == LOW;
+  digitalWrite(BUZZER_PIN, flame ? HIGH : LOW);
+  if (flame) Serial.println("🔥 Flame detected - Buzzer ON");
+}
+
+void handleClapSwitch() {
+  bool soundDetected = digitalRead(SOUND_SENSOR_PIN) == LOW;
+  unsigned long now = millis();
+
+  if (soundDetected && lastSoundState == HIGH && now - lastSoundToggleTime > 1000) {
+    relayStates[2] = !relayStates[2];
+    digitalWrite(RELAY3_PIN, relayStates[2] ? LOW : HIGH);
+    Serial.printf("👏 Clap detected - Relay 3 toggled. State: %s\n", relayStates[2] ? "ON" : "OFF");
+    lastSoundToggleTime = now;
+  }
+
+  lastSoundState = !soundDetected;
+}
+
+// Sinric Pro Handler
+bool onPowerState(const String &deviceId, bool &state) {
+  if (deviceId == DEVICE_ID_1) {
+    setRelay(1, state);
+  } else if (deviceId == DEVICE_ID_4) {
+    setRelay(4, state);
+  }
+  return true;
+}
+
+void setupSinric() {
+  SinricProSwitch &sw1 = SinricPro[DEVICE_ID_1];
+  SinricProSwitch &sw4 = SinricPro[DEVICE_ID_4];
+
+  sw1.onPowerState(onPowerState);
+  sw4.onPowerState(onPowerState);
+
+  SinricPro.begin(APP_KEY, APP_SECRET);
+  SinricPro.restoreDeviceStates(true);
+}
+
+void setupBluetooth() {
+ BTSerial.begin(9600, SERIAL_8N1, BT_RX, BT_TX);
+ Serial.println("Bluetooth Started");
+}
+
+  void handleBluetooth() {
+  if (BTSerial.available()) {
+    char command = BTSerial.read();
+    if (command == '1') {
+      relayStates[0] = !relayStates[0];
+      digitalWrite(RELAY1_PIN, relayStates[0] ? LOW : HIGH);
+      Serial.printf("Bluetooth Command: Relay 1 %s\n", relayStates[0] ? "ON" : "OFF");
+    } else if (command == '2') {
+      relayStates[1] = !relayStates[1];
+      digitalWrite(RELAY2_PIN, relayStates[1] ? LOW : HIGH);
+      Serial.printf("Bluetooth Command: Relay 2 %s\n", relayStates[1] ? "ON" : "OFF");
+    } else if (command == '3') {
+      relayStates[2] = !relayStates[2];
+      digitalWrite(RELAY3_PIN, relayStates[2] ? LOW : HIGH);
+      Serial.printf("Bluetooth Command: Relay 3 %s\n", relayStates[2] ? "ON" : "OFF");
+    } else if (command == '4') {
+      relayStates[3] = !relayStates[3];
+      digitalWrite(RELAY4_PIN, relayStates[3] ? LOW : HIGH);
+      Serial.printf("Bluetooth Command: Relay 4 %s\n", relayStates[3] ? "ON" : "OFF");
+    }
+  }
+  }
+
+void setup() {
+  Serial.begin(115200);
+  setupPins();
+
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  Serial.print("Connecting to WiFi");
+
+  int retries = 0;
+  while (WiFi.status() != WL_CONNECTED && retries < 20) {
+    delay(500);
+    Serial.print(".");
+    retries++;
+  }
+  Serial.println();
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("WiFi Connected");
+    setupSinric();
+  } else {
+    Serial.println("WiFi Failed - Running offline mode");
+  }
+
+  setupBluetooth();
+}
+
+void loop() {
+  handleButtons();
+  handlePIR();
+  handleFlameSensor();
+  handleClapSwitch();
+  handleBluetooth();
+  if (WiFi.status() == WL_CONNECTED) SinricPro.handle();
+}
